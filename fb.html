@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fillups</title>
+    <link rel="stylesheet" type="text/css" href="fb.css">
+</head>
+<body>
+  <div class="base">
+    <div class="quiz-container">
+        <h2>Section-3</h2>
+        <div class="sec-bar">  </div>
+        <div class="question"><h2>Fill in the blanks:</h2></div>
+
+        <div class="options-container">
+            <div class="options"> 
+                <div class="option" onclick="selectOption(this, 1)">20+10</div>
+                <div class="option" onclick="selectOption(this, 2)">2+5</div>
+                <div class="option" onclick="selectOption(this, 3)">20+0</div>
+                <div class="option" onclick="selectOption(this, 4)">3+98</div>
+                <div class="option" onclick="selectOption(this, 4)">-3+9</div>
+            </div>
+            <div class="equal-sign"><div>=</div><div>=</div><div>=</div><div>=</div><div>=</div></div>
+            <div class="answer-boxes">
+                <input type="number" pattern="\d*" class="answer-box" oninput="validateInput(this)" required>
+                <input type="number" pattern="\d*" class="answer-box" oninput="validateInput(this)" required>
+                <input type="number" pattern="\d*" class="answer-box" oninput="validateInput(this)" required>
+                <input type="number" pattern="\d*" class="answer-box" oninput="validateInput(this)" required>
+                <input type="number" pattern="\d*" class="answer-box" oninput="validateInput(this)" required>
+            </div>
+        </div>
+        <div class="navigation">
+            <!-- <button class="back-btn" onclick="goBack()">Back</button> -->
+            <button class="next-btn" onclick="gradeAnswers()">Next</button>
+        </div>
+    </div>
+  </div>
+    <script>
+   
+const correctAnswers = [30, 7, 20, 101, 6];
+
+// Function to check and grade answers
+function gradeAnswers() {
+    const answerInputs = document.querySelectorAll('.answer-box');
+    let correctCount = 0;
+
+    answerInputs.forEach((input, index) => {
+        const userAnswer = parseInt(input.value.trim(), 10);
+
+        if (!isNaN(userAnswer)) {
+            if (userAnswer === correctAnswers[index]) {
+                input.classList.add('correct-answer');
+                correctCount++;
+            } else {
+                input.classList.add('wrong-answer');
+            }
+        } else {
+            input.classList.remove('correct-answer', 'wrong-answer');
+        }
+    });
+
+    const modal = document.createElement('div');
+    modal.className = 'result-modal';
+
+    const content = document.createElement('div');
+    content.className = 'modal-content';
+
+    const message = document.createElement('p');
+    message.textContent = `You got ${correctCount} out of 5 questions correct.`;
+
+    const cancelButton = document.createElement('button');
+    cancelButton.textContent = 'Next';
+    cancelButton.style.backgroundColor = '#007bff';
+    cancelButton.style.color = 'White';
+    cancelButton.style.borderRadius = '5px';
+    cancelButton.style.fontSize = '16px';
+    cancelButton.style.border = 'none';
+    cancelButton.addEventListener('click', () => {
+        document.body.removeChild(modal);
+    });
+
+    content.appendChild(message);
+    content.appendChild(cancelButton);
+    modal.appendChild(content);
+    document.body.appendChild(modal);
+
+    const sectionName = "section_3"; // Example section name
+
+    // Send score data to the server
+    const scoreData = { section_name: sectionName, score: correctCount };
+    fetch("/save_score", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(scoreData)
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log("Score saved successfully");
+        } else {
+            console.error("Failed to save score");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+
+    window.location.href = "dashboard.html"; // Redirect to dashboard
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    
+}
+/* Center the title */
+h1 {
+    text-align: center;
+}
+
+/* Style the graph container */
+body {
+/* Center the graph container */
+    background-image: url(Frame2.png);
+    background-repeat: no-repeat;
+     background-attachment: fixed;
+     background-position: center;
+     background-size: cover;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     height:100vh;
+    
+}
+.container{
+    background-color: #dadada;
+    border-radius: 5px;
+    height: 400px;
+
+}
+#graph-container{
+    height: 40px;
+}
+/* Style the plot area */
+.plot-container {
+    float: left;
+    width: 50%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 20px; /* Add padding around the plot area */
+    border: 1px solid #ccc; /* Add border around the plot area */
+}
