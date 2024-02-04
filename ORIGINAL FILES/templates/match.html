@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Match the column</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <style type="text/css">
+        .blue{background: rgba(3, 172, 76, 0.7);color: #DADADA}
+        .red{background: rgba(255, 0, 0, 0.7);color:#DADADA;}
+
+        /* Centering styles */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #quiz-container {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+
+            border-radius: 5px;
+            border: 2px black solid;
+        }
+    </style>
+    <script type="text/javascript">
+        function shuffle(arr) {
+            for(var j, x, i = arr.length; i; j = parseInt(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
+            return arr;
+        }
+
+        var question = ["10 + 2 =", "5 * 10 =", "6 - 2 =", "12 * 7 =", "10 *4 =", "-490/10 =", "56 + 44 =", "987321 * 0 =", "0/231 =", "99 - 34"];
+        var answer = ["12", "50", "4", "84", "40", "-49", "100", "0", "0", "65"];
+        var choices = ["12", "50", "4", "84", "40", "-49", "100", "0", "0", "65"];
+
+        choices = shuffle(choices);
+    </script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='match.css') }}">
+</head>
+
+<body>
+    <div id="quiz-container">
+        <div id="heading">
+            <h3 align="center" style="text-align: left; font-weight: bold;">Section-2</h3>
+            <!-- <h2 align="center"> Maths quiz</h2> -->
+        </div>
+        <div class="space"></div>
+        <div id="sc">
+            <table bgcolor="#DADADA" align="center" border="0" width="550px;">
+                <tr>
+                    <td align="center" ><b><p align="center"><p id="score"></p></p></b></td>
+                    <td align="center" ><b><p align="center"><p id="right"></p></p></b></td>
+                    <td align="center" ><b><p align="center"><p id="wrong"></p></p></b></td>
+                </tr>
+            </table>
+        </div>
+        <div class="space"></div>
+
+        <table bgcolor="#DADADA" align="center" border="1" width="550px;">
+            <tr>
+                <th>Q.No </th>
+                <th>Question</th>
+                <th>Choices </th>
+                <th>Answer </th>
+            </tr>
+            <tbody class="bodys">
+
+            </tbody>
+        </table>
+        <div class="navigation">
+            <button class="next-btn" >Next</button>
+        </div>
+    </div>
+    <script type="text/javascript">
+        const next_btn = document.querySelector(".navigation .next-btn");
+        next_btn.onclick = ()=>{
+            if(index == question.length){
+                const sectionName = "section_2"; // Example section name
+
+                fetch("/save_score", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ section_name: sectionName, score: score })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log("Score saved successfully");
+                    } else {
+                        console.error("Failed to save score");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+    
+            window.location.href = "fb.html"  
+            }  
+        }
+        document.getElementById("score").innerHTML ="Total Score : ";
+        document.getElementById("right").innerHTML ="Right Answers: ";
+        document.getElementById("wrong").innerHTML ="Wrong Answers: ";
+        var a=0;
+        var index=0;
+
+        $.each(question,function(index,value){
+            var html = '<tr class="question-'+index+'"><td>'+(index+1)+'</td><td id="q-'+index+'">'+value+'</td>';
+
+            if(a==0){
+                html=html+'<td rowspan="'+question.length+'" id="abc"></td>';
+                a=1;
+            }       
+
+            html=html+'<td id="answer-'+index+'"></td></tr>"';
+            $('.bodys').append(html);
+        });
+
+        var str ="";
+        var score=0;
+        var right=0;
+        var wrong=0;
+        $.each(choices,function(val,choic){
+            str=str+'<input id="choice-'+val+'" align="center" type="radio" name="choice" value="'+choic+'" >'+choic+'<br>';
+        });
+
+        $('#abc').html(str);
+
+        $("input:radio").on('change',function(){
+            if(answer[index] == $(this).val() ){
+                var audio= new Audio('/static/Correct-answer.mp3');  
+                audio.play();
+                $('#answer-'+index).html($(this).val()+" &#10004");
+                $('#q-'+index).addClass('blue');
+                score+=0.5;
+                right++;
+            }
+            else{
+                var audio= new Audio('/static/fail.mp3');  
+                audio.play();
+                $('#answer-'+index).html($(this).val()+" &#10006");
+                $('#q-'+index).addClass('red');
+                  
+                wrong++;        
+            }
+            document.getElementById("score").innerHTML ="Total Score : "+score;
+            document.getElementById("right").innerHTML ="Right Answers: "+right;
+            document.getElementById("wrong").innerHTML ="Wrong Answers: "+wrong;
+            $(this).attr("disabled","disabled");
+            index++;
+        });
+       
+    </script>
+</body>
+
+</html>

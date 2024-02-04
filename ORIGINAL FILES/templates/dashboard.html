@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dash.css') }}">
+    <title>Score Graph</title>
+    <!-- Include Plotly.js library -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+    <h1>Graphical Analysis</h1>
+
+    <div id="graph-container">
+        <!-- The graph will be displayed here -->
+    </div>
+</div>
+    <script>
+        // Fetch scores from Flask backend
+        fetch('/get_scores')
+            .then(response => response.json())
+            .then(data => {
+                const sectionNames = Object.keys(data); // Extract section names
+                const sectionScores = Object.values(data); // Extract scores
+    
+                // Define colors for each section
+                const colors = ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)']; // Add more colors if needed
+    
+                // Create the Plotly data trace
+                const trace = {
+                    x: sectionNames,
+                    y: sectionScores,
+                    type: 'bar',
+                    marker: {
+                        color: colors, // Use different colors for each section
+                        line: {
+                            color: 'rgba(0,0,0,0.5)', // Set the color of the bar border
+                            width: 1 // Set the width of the bar border
+                        }
+                    },
+                    hoverinfo: 'y+text', // Show the score and complementary remark when hovering over the bar
+                    text: sectionScores.map(score => {
+                        // Determine complementary remarks based on the score
+                        if (score == 5) return 'Good';
+                        else if (score >= 4) return 'Fair';
+                        else if (score >= 2) return 'Poor';
+                        else return 'Very Poor';
+                    }), // Display the complementary remarks on the bar
+                    textposition: 'inside', // Place the text inside the bars
+                    textfont: {
+                        size: 16, // Increase the size of the text
+                        color: 'black' // Set the color of the text
+                    }
+                };
+    
+                // Create the Plotly layout
+                const layout = {
+                    title: {
+                        text: 'Scores by Section',
+                        font: {
+                            size: 24 // Increase the size of the title
+                        }
+                    },
+                    yaxis: { 
+                        title: 'Scores (Out of 5)', 
+                        range: [0, 5], // Set y-axis range from 0 to 5
+                        showline: true, // Show y-axis line
+                        linewidth: 2, // Set y-axis line width
+                        linecolor: 'black', // Set y-axis line color
+                        tickfont: {
+                            size: 14, // Set the size of the tick labels
+                            color: 'black' // Set the color of the tick labels
+                        }
+                    },
+                    xaxis: {
+                        tickfont: {
+                            size: 14, // Set the size of the tick labels on the x-axis
+                            color: 'black' // Set the color of the tick labels on the x-axis
+                        }
+                    },
+                    width: 800, // Adjust the width of the graph
+                    height: 400, // Adjust the height of the graph,
+                    bargap: 0.05 // Set the gap between bars
+                };
+    
+                // Plot the graph in the 'graph-container' div
+                Plotly.newPlot('graph-container', [trace], layout);
+            })
+            .catch(error => console.error('Error fetching scores:', error));
+    </script>
+    
+    
+    
+    
+    
+    
+</body>
+</html>
