@@ -30,7 +30,6 @@ body {
 .container{
     background-color: #dadada;
     border-radius: 5px;
-    height: 400px;
 
 }
 #graph-container{
@@ -39,9 +38,31 @@ body {
 /* Style the plot area */
 .plot-container {
     float: left;
-    width: 50%;
-    height: 100%;
+    /* width: 50%; */
+    /* height: 100%; */
     box-sizing: border-box;
     padding: 20px; /* Add padding around the plot area */
     border: 1px solid #ccc; /* Add border around the plot area */
+}
+.btn-exit{
+    height: 40px;
+  padding: 0 13px;
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: #fff;
+  border-radius: 5px;
+  background: #007bff;
+  border: 1px solid #007bff;
+  line-height: 10px;
+  margin: 10px 0px;
+  /* align-items: center; */
+}
+.nav{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
