@@ -4,7 +4,7 @@
 The Educational Practice Platform is a web application designed to provide a dynamic and interactive learning experience for students in grades 1-10. The platform offers a range of practice problems across various subjects, fostering skill development and reinforcing classroom learning. The website encompasses a user-friendly interface with age-appropriate content, engaging quizzes, and a performance dashboard to track students' progress.
 
 ## Usages
-### While sign up, the data goes for verification, after verification from goolge sheets,it will able to logged in abd able to give test.
+### While sign up, the data goes for verification, after verification from goolge sheets, the student will be able to logged in and he/she will be able to give the quiz.
 
 #### Running on: 
 https://sauravpatel027.github.io/Quizz/
