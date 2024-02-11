@@ -8,6 +8,7 @@ The Educational Practice Platform is a web application designed to provide a dyn
 
 #### Running on: 
 https://sauravpatel027.github.io/Quizz/
+**(For Trial Username: admin, Password: admin)**
 https://script.google.com/macros/s/AKfycbwR9xn_1PeUnaR72eQunov_e7sNZ41OJjTaYcqxB9IJnHOorHHDWVvo5KvwPK_sHRA5/exec 
 https://manjulgupta.github.io/numbernauts/ 
 
