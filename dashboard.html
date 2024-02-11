@@ -48,9 +48,10 @@
                     hoverinfo: 'y+text', // Show the score and complementary remark when hovering over the bar
                     text: sectionScores.map(score => {
                         // Example: Determine complementary remarks based on the score
-                        if (score == 5) return 'Good';
-                        else if (score >= 4) return 'Fair';
-                        else if (score >= 2) return 'Poor';
+                        if (score == 5) return 'Excellent';
+                        else if (score == 4) return 'Good';
+                        else if (score==3) return 'Fair';
+                        else if (score == 2) return 'Poor';
                         else return 'Very Poor';
                     }), // Display the complementary remarks on the bar
                     textposition: 'inside', // Place the text inside the bars
