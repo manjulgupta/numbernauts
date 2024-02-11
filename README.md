@@ -4,10 +4,12 @@
 The Educational Practice Platform is a web application designed to provide a dynamic and interactive learning experience for students in grades 1-10. The platform offers a range of practice problems across various subjects, fostering skill development and reinforcing classroom learning. The website encompasses a user-friendly interface with age-appropriate content, engaging quizzes, and a performance dashboard to track students' progress.
 
 ## Usages
-### Place all the contains of the zipped file(project.zip) into a single folder and nevigate to this folder and run the command to make  in the terminal,a link will appear.Click on the link that appears on the terminal.
+### While sign up,the data goes for verification,after verifying from goolge sheets,it will able to logged in abd able to give test.
 
-#### Running on http://127.0.0.1:5000.
+#### Running on https://sauravpatel027.github.io/Quizz/ , https://script.google.com/macros/s/AKfycbwR9xn_1PeUnaR72eQunov_e7sNZ41OJjTaYcqxB9IJnHOorHHDWVvo5KvwPK_sHRA5/exec , https://manjulgupta.github.io/numbernauts/ .
+#### Logging log- https://docs.google.com/spreadsheets/d/1CKqEuO1SpuwoMWhoZFVS4cAc0WNBjYq0PGl56jQ5kJE/edit#gid=554544367.
 
+## Repos-https://github.com/manjulgupta/numbernauts & https://github.com/SauravPatel027/Quizz
 The first page prompts users to log in or create an account.
 1. Multiple-Choice Questions:
 
